@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Instagram</string>
+    <string name="input_your_email">Input your email</string>
+    <string name="input_your_password">Input your password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="fill_the_field">Fill the field</string>
+    <string name="password_not_match">Passwords do not match each other</string>
 </resources>
