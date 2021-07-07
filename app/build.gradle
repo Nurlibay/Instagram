@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id("androidx.navigation.safeargs")
+    id 'kotlin-kapt'
 }
 
 android {
@@ -49,15 +51,36 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    def nav_version = "2.3.4"
-    
+    /* Jetpack Navigation start library */
+
+    def nav_version = "2.3.5"
+
     // Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    //noinspection GradleDependency
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // Feature module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
 
     // Jetpack arguments
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    /* Jetpack Navigation end library */
+
+
+    /* Koin start library */
+
+    // Current version
+    def koin_version= "3.1.2"
+
+    // Koin core features
+    implementation "io.insert-koin:koin-core:$koin_version"
+
+    // Koin main features for Android (Scope,ViewModel ...)
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    /* Koin end library */
+
 
     def material_version = "1.1.0-alpha07"
     implementation "com.google.android.material:material:$material_version"
@@ -79,4 +102,14 @@ dependencies {
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    //LiveData and ViewModel
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0'
+
+    // lottie for splash
+    implementation 'com.airbnb.android:lottie:3.7.0'
 }
