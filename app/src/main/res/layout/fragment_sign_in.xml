@@ -4,6 +4,30 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/instagram_logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/instagram_logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_standard"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textColor="#E52A78"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.03"
+        app:layout_constraintTop_toBottomOf="@id/instagram_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
         android:layout_width="match_parent"
@@ -18,8 +42,11 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/input_background"
             android:hint="@string/input_your_email"
-            />
+            android:paddingStart="20dp"
+            android:inputType="textEmailAddress"
+            android:paddingEnd="20dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,28 +64,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/input_your_password"
+            android:paddingStart="20dp"
+            android:background="@drawable/input_background"
+            android:paddingEnd="20dp"
+            android:inputType="textPassword"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:layout_constraintBottom_toTopOf="@id/btnSignIn"
-        android:layout_marginHorizontal="@dimen/margin_standard"
-        app:cornerRadius="16dp"
-        android:text="@string/sign_up"
-        />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSignUp"
         android:layout_margin="@dimen/margin_standard"
         app:cornerRadius="16dp"
+        android:backgroundTint="#E52A78"
+        android:layout_marginTop="@dimen/margin_standard"
         android:text="@string/sign_in"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_standard"
+        app:cornerRadius="16dp"
+        android:text="@string/sign_up"
+        android:layout_marginBottom="@dimen/margin_standard"
+        />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
