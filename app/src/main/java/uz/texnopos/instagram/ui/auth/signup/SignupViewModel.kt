@@ -7,8 +7,8 @@ import uz.texnopos.instagram.data.FirebaseHelper
 import uz.texnopos.instagram.data.Resource
 
 class SignupViewModel(private val firebaseHelper: FirebaseHelper) : ViewModel() {
-    var mutableSignUpStatus: MutableLiveData<Resource<String?>> = MutableLiveData()
-    private val signUpStatus: LiveData<Resource<String?>>
+    private var mutableSignUpStatus: MutableLiveData<Resource<String?>> = MutableLiveData()
+    val signUpStatus: LiveData<Resource<String?>>
         get() = mutableSignUpStatus
 
     fun signUp(email: String, password: String) {
