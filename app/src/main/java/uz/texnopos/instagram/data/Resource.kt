@@ -3,6 +3,7 @@ package uz.texnopos.instagram.data
 open class Resource<out T> constructor(val status: ResourceState, val data: T?, val message: String?) {
 
     companion object {
+        
         fun <T> success(data: T): Resource<T> {
             return Resource(ResourceState.SUCCESS, data, null)
         }
