@@ -17,4 +17,13 @@
     <string name="add_a_new_post">Add a new Post</string>
     <string name="favorite">Favorites</string>
     <string name="profile">Profile</string>
+    <string name="gmail">koshkinbayevn@gmail.com</string>
+    <string name="posts">Публикации</string>
+    <string name="_1">1</string>
+    <string name="_155">155</string>
+    <string name="followers">Подписчики</string>
+    <string name="_251">251</string>
+    <string name="following">Подписки</string>
+    <string name="nurlibay_koshkinbaev">Nurlibay Koshkinbaev</string>
+    <string name="edit_profile">Редактировать профиль</string>
 </resources>

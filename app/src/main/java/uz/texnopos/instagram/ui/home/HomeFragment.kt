@@ -4,5 +4,5 @@ import androidx.fragment.app.Fragment
 import uz.texnopos.instagram.R
 
 class HomeFragment: Fragment(R.layout.fragment_home) {
-
+    
 }
