@@ -15,7 +15,6 @@ import uz.texnopos.instagram.R
 import uz.texnopos.instagram.data.ResourceState
 import uz.texnopos.instagram.data.model.User
 import uz.texnopos.instagram.databinding.FragmentProfileEditBinding
-import uz.texnopos.instagram.ui.main.MainFragment
 
 class EditProfileFragment: Fragment(R.layout.fragment_profile_edit) {
 
