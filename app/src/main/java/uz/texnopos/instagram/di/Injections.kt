@@ -11,6 +11,7 @@ import uz.texnopos.instagram.data.helper.ProfileHelper
 import uz.texnopos.instagram.ui.auth.signin.SignInViewModel
 import uz.texnopos.instagram.ui.auth.signup.SignupViewModel
 import uz.texnopos.instagram.ui.profile.ProfileViewModel
+import uz.texnopos.instagram.ui.profile.edit.EditProfileViewModel
 
 val dataModule = module {
     single { FirebaseAuth.getInstance() }
@@ -24,4 +25,5 @@ val viewModelModule = module {
     viewModel { SignupViewModel(get()) }
     viewModel { SignInViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { EditProfileViewModel(get()) }
 }

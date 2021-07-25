@@ -62,6 +62,21 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="uz.texnopos.instagram.ui.main.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+
+        <action
+            android:id="@+id/action_mainFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="uz.texnopos.instagram.ui.profile.edit.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
 </navigation>

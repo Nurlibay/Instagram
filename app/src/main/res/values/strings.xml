@@ -26,4 +26,7 @@
     <string name="following">Подписки</string>
     <string name="nurlibay_koshkinbaev">Nurlibay Koshkinbaev</string>
     <string name="edit_profile">Редактировать профиль</string>
+    <string name="edit_profile_image">Изменить фото профиля</string>
+    <string name="tvName">Имя</string>
+    <string name="tvUserName">Имя пользователя</string>
 </resources>

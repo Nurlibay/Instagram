@@ -19,4 +19,17 @@ class ProfileHelper(private val auth: FirebaseAuth, private val db: FirebaseFire
                 onFailure.invoke(it.localizedMessage)
             }
     }
+
+    fun editProfile(user: User, onSuccess: () -> Unit, onFailure: (msg: String?) -> Unit){
+
+        // db.collection(Const.USERS).document(user.uid).set(user)
+
+        db.document("${Const.USERS}/${user.uid}").set(user)
+            .addOnSuccessListener {
+                onSuccess.invoke()
+            }
+            .addOnFailureListener {
+                onFailure.invoke(it.localizedMessage)
+            }
+    }
 }
