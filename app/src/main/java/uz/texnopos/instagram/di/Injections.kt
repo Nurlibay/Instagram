@@ -2,12 +2,15 @@ package uz.texnopos.instagram.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import uz.texnopos.instagram.data.helper.AuthHelper
 import uz.texnopos.instagram.data.Settings
+import uz.texnopos.instagram.data.helper.PostHelper
 import uz.texnopos.instagram.data.helper.ProfileHelper
+import uz.texnopos.instagram.ui.add.AddPostViewModel
 import uz.texnopos.instagram.ui.auth.signin.SignInViewModel
 import uz.texnopos.instagram.ui.auth.signup.SignupViewModel
 import uz.texnopos.instagram.ui.profile.ProfileViewModel
@@ -18,7 +21,10 @@ val dataModule = module {
     single { FirebaseFirestore.getInstance() }
     single { AuthHelper(get(), get()) }
     single { Settings(androidContext()) }
+    single { FirebaseStorage.getInstance() }
     single { ProfileHelper(get(), get()) }
+    single { PostHelper(get(), get(), get()) }
+
 }
 
 val viewModelModule = module {
@@ -26,4 +32,5 @@ val viewModelModule = module {
     viewModel { SignInViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { EditProfileViewModel(get()) }
+    viewModel { AddPostViewModel(get()) }
 }

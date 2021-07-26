@@ -29,4 +29,6 @@
     <string name="edit_profile_image">Изменить фото профиля</string>
     <string name="tvName">Имя</string>
     <string name="tvUserName">Имя пользователя</string>
+    <string name="write_a_interesting_story">Write a interesting story</string>
+    <string name="send_a_post">Send a post</string>
 </resources>
