@@ -36,6 +36,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
         binding.apply {
             binding.btnSend.setOnClickListener {
+
                 ivPost.isDrawingCacheEnabled = true
                 ivPost.buildDrawingCache()
                 val bitmap = (ivPost.drawable as BitmapDrawable).bitmap
@@ -43,6 +44,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                 val data = baos.toByteArray()
                 viewModel.sendNewPost(data, etDescription.text.toString())
+
             }
         }
 

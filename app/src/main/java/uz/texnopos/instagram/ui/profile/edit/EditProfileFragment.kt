@@ -1,5 +1,9 @@
 package uz.texnopos.instagram.ui.profile.edit
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -15,8 +19,14 @@ import uz.texnopos.instagram.R
 import uz.texnopos.instagram.data.ResourceState
 import uz.texnopos.instagram.data.model.User
 import uz.texnopos.instagram.databinding.FragmentProfileEditBinding
+import java.io.ByteArrayOutputStream
 
 class EditProfileFragment: Fragment(R.layout.fragment_profile_edit) {
+
+    companion object {
+        //image pick code
+        private const val IMAGE_PICK_CODE = 1000
+    }
 
     private lateinit var binding: FragmentProfileEditBinding
     private val viewModel: EditProfileViewModel by viewModel()
@@ -40,10 +50,20 @@ class EditProfileFragment: Fragment(R.layout.fragment_profile_edit) {
                 navController.popBackStack()
             }
             doneBtn.setOnClickListener {
+
+                userImage.isDrawingCacheEnabled = true
+                userImage.buildDrawingCache()
+                val bitmap = (userImage.drawable as BitmapDrawable).bitmap
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                viewModel.sendNewUserImage(data)
+
                 cUser.biography = etBiography.text.toString()
                 cUser.name = etName.text.toString()
 
                 viewModel.editProfile(cUser)
+
             }
         }
 
@@ -56,6 +76,10 @@ class EditProfileFragment: Fragment(R.layout.fragment_profile_edit) {
 
         (requireActivity() as MainActivity).onBackPressedDispatcher.addCallback(requireActivity(), callback)
 
+
+        binding.tvEditImage.setOnClickListener {
+            pickImageFromGallery()
+        }
     }
 
     private fun setUpObServers(){
@@ -112,6 +136,20 @@ class EditProfileFragment: Fragment(R.layout.fragment_profile_edit) {
             cancelBtn.isEnabled = !isLoading
             etName.isEnabled = !isLoading
             etBiography.isEnabled = !isLoading
+        }
+    }
+
+    private fun pickImageFromGallery() {
+        //Intent to pick image
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+
+    //handle result of picked image
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            binding.userImage.setImageURI(data?.data)
         }
     }
 
