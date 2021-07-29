@@ -20,12 +20,15 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModel()
     private lateinit var binding: FragmentProfileBinding
     private lateinit var parentNavController: NavController
+    private var adapter = ProfilePostAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
+        binding.rvPosts.adapter = adapter
         setUpObservers()
         viewModel.getProfileData()
+        viewModel.getCurrentUserPosts()
 
         parentNavController = (parentFragment?.parentFragment as MainFragment).findNavController()
 
@@ -35,6 +38,7 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
     }
     
     private fun setUpObservers(){
+
         viewModel.profile.observe(viewLifecycleOwner, Observer {
             when(it.status){
                 ResourceState.LOADING -> {
@@ -65,6 +69,22 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
                 }
             }
         })
+
+        viewModel.posts.observe(viewLifecycleOwner){
+            when(it.status){
+                ResourceState.LOADING -> {
+                    setLoading(true)
+                }
+                ResourceState.SUCCESS -> {
+                    setLoading(false)
+                    adapter.models = it.data!!
+                }
+                ResourceState.ERROR -> {
+                    setLoading(false)
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
     
     private fun setLoading(isLoading: Boolean){

@@ -31,4 +31,8 @@
     <string name="tvUserName">Имя пользователя</string>
     <string name="write_a_interesting_story">Write a interesting story</string>
     <string name="send_a_post">Send a post</string>
+    <string name="post_theme">Post theme</string>
+    <string name="username">Username</string>
+    <string name="location">Location</string>
+    <string name="likes">Нравится</string>
 </resources>

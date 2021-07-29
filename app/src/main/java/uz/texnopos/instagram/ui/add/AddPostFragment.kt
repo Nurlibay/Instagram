@@ -41,7 +41,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 ivPost.buildDrawingCache()
                 val bitmap = (ivPost.drawable as BitmapDrawable).bitmap
                 val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos)
                 val data = baos.toByteArray()
                 viewModel.sendNewPost(data, etDescription.text.toString())
 

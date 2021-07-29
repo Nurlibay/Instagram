@@ -45,4 +45,20 @@ class PostHelper(
         }
     }
 
+    fun getCurrentUserAllPosts(onSuccess: (posts: List<Post>) -> Unit, onFailure: (msg: String?) -> Unit){
+        db.collection(Const.POSTS).whereEqualTo("userId", auth.currentUser!!.uid)
+//            .orderBy("createdDate", Query.Direction.DESCENDING)
+//            .orderBy("likes", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener {
+                val res = it.documents.map { doc ->
+                    doc.toObject(Post::class.java)!!
+                }
+                onSuccess.invoke(res)
+            }
+            .addOnFailureListener {
+                onFailure.invoke(it.localizedMessage)
+            }
+    }
+
 }

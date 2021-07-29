@@ -1,11 +1,9 @@
 package uz.texnopos.instagram.data.helper
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import uz.texnopos.instagram.data.Const
-import uz.texnopos.instagram.data.model.User
 import java.util.*
 
 class EditProfileHelper(
