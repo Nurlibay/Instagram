@@ -4,11 +4,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uz.texnopos.instagram.data.model.Post
 import uz.texnopos.instagram.databinding.ItemPostBinding
 import java.text.SimpleDateFormat
 
 class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+
+    private var onDoubleClicked: (post: Post) -> Unit = {}
+    fun setOnDoubleClickListener(onDoubleClicked: (post: Post) -> Unit) {
+        this.onDoubleClicked = onDoubleClicked
+    }
+
+    private var onLiked: (postId: String) -> Unit = { }
+    fun setOnLikeListener(onLiked: (postId: String) -> Unit) {
+        this.onLiked = onLiked
+    }
 
     inner class PostViewHolder(private val binding: ItemPostBinding): RecyclerView.ViewHolder(binding.root){
         fun populateModel(post: Post){
@@ -23,6 +36,22 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
             val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
             val dateString = simpleDateFormat.format(post.createdDate)
             binding.tvCreatedDate.text = String.format("Date: %s", dateString)
+            var doubleClick = false
+            binding.postImage.setOnClickListener {
+                if (doubleClick) {
+                    onDoubleClicked.invoke(post)
+                    doubleClick = false
+                } else {
+                    doubleClick = true
+                    GlobalScope.launch {
+                        delay(500)
+                        doubleClick = false
+                    }
+                }
+            }
+            binding.favoriteIcon.setOnClickListener {
+                onLiked.invoke(post.id)
+            }
         }
     }
 
