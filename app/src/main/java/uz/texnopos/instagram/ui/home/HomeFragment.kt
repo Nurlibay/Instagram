@@ -21,6 +21,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
         binding.rvPost.adapter = adapter
+
         adapter.setOnDoubleClickListener { post ->
             viewModel.onDoubleClicked(post)
         }

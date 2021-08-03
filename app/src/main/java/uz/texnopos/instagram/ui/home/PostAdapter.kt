@@ -1,5 +1,6 @@
 package uz.texnopos.instagram.ui.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -30,12 +31,12 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
             Glide
                 .with(binding.root.context)
                 .load(post.imageUrl)
-                .centerCrop()
                 .into(binding.postImage)
 
             val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
             val dateString = simpleDateFormat.format(post.createdDate)
             binding.tvCreatedDate.text = String.format("Date: %s", dateString)
+
             var doubleClick = false
             binding.postImage.setOnClickListener {
                 if (doubleClick) {
@@ -73,6 +74,4 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     override fun getItemCount(): Int {
         return models.size
     }
-
-
  }

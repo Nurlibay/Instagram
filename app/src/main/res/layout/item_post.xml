@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_standard"
-                    android:text="@string/username"
+                    android:text="koshkinbayevn@gmail.com"
                     android:textStyle="bold" />
 
                 <TextView
@@ -63,39 +63,53 @@
 
         <LinearLayout
             android:id="@+id/btnIcons"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="start"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/postImage">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/favoriteIcon"
                 android:layout_width="40dp"
-                android:layout_height="37dp"
-                android:layout_margin="10dp"
+                android:layout_height="40dp"
                 android:padding="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/ic_baseline_favorite_border_24"
-
                 />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/copyIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
                 android:padding="8dp"
-                android:src="@drawable/ic_baseline_chat_bubble_24" />
+                android:layout_marginTop="10dp"
+                android:src="@drawable/chat" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/shareIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
                 android:padding="8dp"
-                android:src="@drawable/ic_baseline_send_24" />
+                android:layout_marginTop="10dp"
+                android:src="@drawable/send" />
 
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/saveIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/save"
+            android:padding="8dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnIcons"
+            app:layout_constraintBottom_toBottomOf="@id/btnIcons"
+            android:layout_marginEnd="@dimen/margin_standard"
+            />
 
         <TextView
             android:id="@+id/tvLikes"
