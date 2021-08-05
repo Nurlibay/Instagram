@@ -1,4 +1,4 @@
-package uz.texnopos.instagram.ui.home
+package uz.texnopos.instagram.ui.favorite
 
 import android.animation.Animator
 import android.annotation.SuppressLint
@@ -15,20 +15,9 @@ import uz.texnopos.instagram.data.model.Post
 import uz.texnopos.instagram.databinding.ItemPostBinding
 import java.text.SimpleDateFormat
 
-class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class LikedPostAdapter : RecyclerView.Adapter<LikedPostAdapter.LikedPostViewHolder>(){
 
-    private var onDoubleClicked: (post: Post) -> Unit = {}
-    fun setOnDoubleClickListener(onDoubleClicked: (post: Post) -> Unit) {
-        this.onDoubleClicked = onDoubleClicked
-    }
-
-    private var onLiked: (postId: String) -> Unit = { }
-    fun setOnLikeListener(onLiked: (postId: String) -> Unit) {
-        this.onLiked = onLiked
-    }
-
-    inner class PostViewHolder(private val binding: ItemPostBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class LikedPostViewHolder(private val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
         fun populateModel(post: Post) {
             binding.tvDescription.text = post.description
             binding.tvLikesCount.text = post.likes.toString()
@@ -89,6 +78,16 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
         }
     }
 
+    private var onDoubleClicked: (post: Post) -> Unit = {}
+    fun setOnDoubleClickListener(onDoubleClicked: (post: Post) -> Unit) {
+        this.onDoubleClicked = onDoubleClicked
+    }
+
+    private var onLiked: (postId: String) -> Unit = { }
+    fun setOnLikeListener(onLiked: (postId: String) -> Unit) {
+        this.onLiked = onLiked
+    }
+
     var models: MutableList<Post> = mutableListOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -96,13 +95,12 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val itemBinding =
-            ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(itemBinding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedPostViewHolder {
+        val itemBinding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return LikedPostViewHolder(itemBinding)
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LikedPostViewHolder, position: Int) {
         holder.populateModel(models[position])
     }
 

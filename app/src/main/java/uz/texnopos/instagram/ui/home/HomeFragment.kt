@@ -3,9 +3,7 @@ package uz.texnopos.instagram.ui.home
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.instagram.R
 import uz.texnopos.instagram.data.ResourceState
@@ -32,15 +30,24 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     private fun setUpObservers() {
         viewModel.posts.observe(viewLifecycleOwner){
             when(it.status){
-                ResourceState.LOADING -> {
-                    binding.loading.isVisible = true
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
-                    adapter.models = it.data!!
-                    binding.loading.isVisible = false
+                    adapter.models = it.data!!.toMutableList()
                 }
                 ResourceState.ERROR -> {
-                    binding.loading.isVisible = false
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.like.observe(viewLifecycleOwner) {
+            when(it.status){
+                ResourceState.LOADING -> {
+                }
+                ResourceState.SUCCESS -> {
+                    adapter.updatePost(it.data!!)
+                }
+                ResourceState.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }

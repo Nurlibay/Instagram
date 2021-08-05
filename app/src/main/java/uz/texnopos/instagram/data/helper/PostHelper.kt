@@ -75,14 +75,12 @@ class PostHelper(
             }
     }
 
-    fun onDoubleClicked(post: Post, onSuccess: (count: Int) -> Unit,
+    fun onDoubleClicked(post: Post, onSuccess: (post: Post) -> Unit,
     onFailure: (msg: String?) -> Unit) {
         db.document("${Const.USERS}/${auth.currentUser!!.uid}/${Const.LIKED_POSTS}/${post.id}")
             .get()
             .addOnSuccessListener {
                 if (!it.exists()) {
-                    getPostLikesCount(post.id, onSuccess, onFailure)
-                } else {
                     addPostToLikedPosts(post, onSuccess, onFailure)
                 }
             }
@@ -91,26 +89,51 @@ class PostHelper(
             }
     }
 
-    private fun addPostToLikedPosts(post: Post, onSuccess: (count: Int) -> Unit,
+    private fun addPostToLikedPosts(post: Post, onSuccess: (post: Post) -> Unit,
                                     onFailure: (msg: String?) -> Unit) {
         db.collection(Const.USERS).document(auth.currentUser!!.uid).collection(Const.LIKED_POSTS).document(post.id).set(post)
             .addOnSuccessListener {
-                getPostLikesCount(post.id, onSuccess, onFailure)
+                getPostLikesCount(post, onSuccess, onFailure)
             }
             .addOnFailureListener {
                 onFailure.invoke(it.message)
             }
     }
 
-    private fun getPostLikesCount(postId: String, onSuccess: (count: Int) -> Unit,
+    private fun getPostLikesCount(post: Post, onSuccess: (post: Post) -> Unit,
                                   onFailure: (msg: String?) -> Unit) {
-        db.collection(Const.POSTS).document(postId).get()
+        db.collection(Const.POSTS).document(post.id).get()
             .addOnSuccessListener {
-                onSuccess.invoke(it["likes"].toString().toInt())
+                increaseLikeCount(post, it["likes"].toString().toInt(), onSuccess, onFailure)
             }
             .addOnFailureListener {
                 onFailure.invoke(it.message)
             }
     }
 
+    private fun increaseLikeCount(post: Post, count: Int, onSuccess: (post: Post) -> Unit,
+                                  onFailure: (msg: String?) -> Unit) {
+        db.collection(Const.POSTS).document(post.id)
+            .update("likes", count+1)
+            .addOnSuccessListener {
+                post.likes = count + 1L
+                onSuccess.invoke(post)
+            }
+            .addOnFailureListener {
+                onFailure.invoke(it.message)
+            }
+    }
+
+    fun getUserLikedPosts(onSuccess: (posts: List<Post>) -> Unit, onFailure: (msg: String?) -> Unit) {
+        db.collection(Const.USERS).document(auth.currentUser!!.uid).collection(Const.LIKED_POSTS).get()
+            .addOnSuccessListener {
+                val res = it.documents.map { doc ->
+                    doc.toObject(Post::class.java)!!
+                }
+                onSuccess.invoke(res)
+            }
+            .addOnFailureListener {
+                onFailure.invoke(it.message)
+            }
+    }
 }

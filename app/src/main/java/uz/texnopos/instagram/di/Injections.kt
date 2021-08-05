@@ -14,6 +14,7 @@ import uz.texnopos.instagram.data.helper.ProfileHelper
 import uz.texnopos.instagram.ui.add.AddPostViewModel
 import uz.texnopos.instagram.ui.auth.signin.SignInViewModel
 import uz.texnopos.instagram.ui.auth.signup.SignupViewModel
+import uz.texnopos.instagram.ui.favorite.LikedPostViewModel
 import uz.texnopos.instagram.ui.home.HomeViewModel
 import uz.texnopos.instagram.ui.profile.ProfileViewModel
 import uz.texnopos.instagram.ui.profile.edit.EditProfileViewModel
@@ -36,4 +37,5 @@ val viewModelModule = module {
     viewModel { EditProfileViewModel(get(), get()) }
     viewModel { AddPostViewModel(get()) }
     viewModel { HomeViewModel(get()) }
+    viewModel { LikedPostViewModel(get()) }
 }

@@ -1,4 +1,4 @@
-package uz.texnopos.instagram.ui.home
+package uz.texnopos.instagram.ui.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,19 +7,19 @@ import uz.texnopos.instagram.data.Resource
 import uz.texnopos.instagram.data.helper.PostHelper
 import uz.texnopos.instagram.data.model.Post
 
-class HomeViewModel(private val postHelper: PostHelper): ViewModel() {
+class LikedPostViewModel(private val postHelper: PostHelper): ViewModel() {
 
-    private var mutablePost: MutableLiveData<Resource<List<Post>>> = MutableLiveData()
-    val posts: LiveData<Resource<List<Post>>> get() = mutablePost
+    private var mutableLikedPost: MutableLiveData<Resource<List<Post>>> = MutableLiveData()
+    val likedPost: LiveData<Resource<List<Post>>> get() = mutableLikedPost
 
-    fun getCurrentUserPosts(){
-        mutablePost.value = Resource.loading()
-        postHelper.getAllPosts(
+    fun getUserLikedPosts(){
+        mutableLikedPost.value = Resource.loading()
+        postHelper.getUserLikedPosts(
             {
-                mutablePost.value = Resource.success(it)
+                mutableLikedPost.value = Resource.success(it)
             },
             {
-                mutablePost.value = Resource.error(it)
+                mutableLikedPost.value = Resource.error(it)
             }
         )
     }
@@ -35,4 +35,5 @@ class HomeViewModel(private val postHelper: PostHelper): ViewModel() {
                 mutableLike.value = Resource.error(it)
             })
     }
+
 }
