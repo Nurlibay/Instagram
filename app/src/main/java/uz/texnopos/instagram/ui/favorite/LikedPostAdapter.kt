@@ -45,8 +45,35 @@ class LikedPostAdapter : RecyclerView.Adapter<LikedPostAdapter.LikedPostViewHold
                 }
             }
             binding.favoriteIcon.setOnClickListener {
+                showFavAnim()
                 binding.favoriteIcon.setImageResource(R.drawable.ic_baseline_favorite_24)
                 onLiked.invoke(post.id)
+            }
+        }
+
+        private fun showFavAnim(){
+            binding.favLikeAnim.apply {
+                isVisible = true
+                setMinAndMaxFrame(10, 40)
+                speed = 2f
+                addAnimatorListener(object : Animator.AnimatorListener {
+
+                    override fun onAnimationStart(animation: Animator?) {
+
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        isVisible = false
+                        //activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+                    }
+
+                    override fun onAnimationRepeat(animation: Animator?) {
+                    }
+                })
+                playAnimation()
             }
         }
 

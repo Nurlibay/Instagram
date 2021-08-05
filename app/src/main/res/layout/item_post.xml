@@ -94,6 +94,18 @@
                 android:src="@drawable/ic_baseline_favorite_border_24"
                 />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/favLikeAnim"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:lottie_rawRes="@raw/like_anim"
+                app:layout_constraintTop_toTopOf="@id/favoriteIcon"
+                app:layout_constraintBottom_toBottomOf="@id/favoriteIcon"
+                app:layout_constraintStart_toStartOf="@id/favoriteIcon"
+                app:layout_constraintEnd_toEndOf="@id/favoriteIcon"
+                android:visibility="gone"
+                />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/copyIcon"
                 android:layout_width="40dp"
