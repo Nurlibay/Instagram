@@ -3,7 +3,6 @@ package uz.texnopos.instagram.data.helper
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import uz.texnopos.instagram.data.Const
 import uz.texnopos.instagram.data.model.Post
 import uz.texnopos.instagram.data.model.User

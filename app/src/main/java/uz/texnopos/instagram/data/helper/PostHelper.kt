@@ -104,19 +104,21 @@ class PostHelper(
                                   onFailure: (msg: String?) -> Unit) {
         db.collection(Const.POSTS).document(post.id).get()
             .addOnSuccessListener {
-                increaseLikeCount(post, it["likes"].toString().toInt(), onSuccess, onFailure)
+                val serverPost = it.toObject(Post::class.java)!!
+                increaseLikeCount(post, serverPost.likedUsers, onSuccess, onFailure)
             }
             .addOnFailureListener {
                 onFailure.invoke(it.message)
             }
     }
 
-    private fun increaseLikeCount(post: Post, count: Int, onSuccess: (post: Post) -> Unit,
+    private fun increaseLikeCount(post: Post, likedUsers: MutableList<String>, onSuccess: (post: Post) -> Unit,
                                   onFailure: (msg: String?) -> Unit) {
+        likedUsers.add(auth.currentUser!!.uid)
         db.collection(Const.POSTS).document(post.id)
-            .update("likes", count+1)
+            .update("likedUsers", likedUsers)
             .addOnSuccessListener {
-                post.likes = count + 1L
+                post.likedUsers = likedUsers
                 onSuccess.invoke(post)
             }
             .addOnFailureListener {
@@ -131,6 +133,26 @@ class PostHelper(
                     doc.toObject(Post::class.java)!!
                 }
                 onSuccess.invoke(res)
+            }
+            .addOnFailureListener {
+                onFailure.invoke(it.message)
+            }
+    }
+
+    fun removeUserLikedPosts(post: Post, onSuccess: () -> Unit, onFailure: (msg: String?) -> Unit){
+        db.collection(Const.POSTS).get()
+            .addOnSuccessListener {
+                val res = it.documents.map { doc->
+                    doc.toObject(Post::class.java)
+                }
+                res.forEach { serverPost ->
+                    serverPost!!.likedUsers.forEach {
+                        if (it.contains(post.userId)){
+                            serverPost.likedUsers.remove(it)
+                        }
+                    }
+                }
+                onSuccess.invoke()
             }
             .addOnFailureListener {
                 onFailure.invoke(it.message)

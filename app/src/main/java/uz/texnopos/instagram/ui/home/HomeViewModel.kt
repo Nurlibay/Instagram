@@ -35,4 +35,19 @@ class HomeViewModel(private val postHelper: PostHelper): ViewModel() {
                 mutableLike.value = Resource.error(it)
             })
     }
+
+    private var mutableUserLikedPost: MutableLiveData<Resource<String>> = MutableLiveData()
+    val removeUserLikedPost: LiveData<Resource<String>> get() = mutableUserLikedPost
+
+    fun removeUserLikedPost(post: Post){
+        mutableUserLikedPost.value = Resource.loading()
+        postHelper.removeUserLikedPosts(post,
+            {
+                mutableUserLikedPost.value = Resource.success("success")
+            },
+            {
+                mutableUserLikedPost.value = Resource.error(it)
+            }
+        )
+    }
 }

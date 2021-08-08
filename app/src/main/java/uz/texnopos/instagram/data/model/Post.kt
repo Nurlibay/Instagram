@@ -6,6 +6,6 @@ data class Post(
     val imageUrl: String = "",
     val description: String = "",
     val createdDate: Long = System.currentTimeMillis(),
-    var likes: Long = 0,
-    var views: Long = 0
+    var views: Long = 0,
+    var likedUsers: MutableList<String> = mutableListOf()
 )

@@ -18,9 +18,10 @@ import java.text.SimpleDateFormat
 class LikedPostAdapter : RecyclerView.Adapter<LikedPostAdapter.LikedPostViewHolder>(){
 
     inner class LikedPostViewHolder(private val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SimpleDateFormat")
         fun populateModel(post: Post) {
             binding.tvDescription.text = post.description
-            binding.tvLikesCount.text = post.likes.toString()
+            binding.tvLikesCount.text = post.likedUsers.size.toString()
             Glide
                 .with(binding.root.context)
                 .load(post.imageUrl)

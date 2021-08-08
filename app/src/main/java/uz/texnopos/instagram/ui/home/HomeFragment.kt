@@ -8,6 +8,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.instagram.R
 import uz.texnopos.instagram.data.ResourceState
 import uz.texnopos.instagram.databinding.FragmentHomeBinding
+import uz.texnopos.instagram.ui.profile.ProfileViewModel
 
 class HomeFragment: Fragment(R.layout.fragment_home) {
 
@@ -22,6 +23,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
         adapter.setOnDoubleClickListener { post ->
             viewModel.onDoubleClicked(post)
+        }
+        adapter.setOnDislikeListener { post, userId ->
+            viewModel.removeUserLikedPost(post)
         }
         setUpObservers()
         viewModel.getCurrentUserPosts()

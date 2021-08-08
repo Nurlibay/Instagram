@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,21 +18,29 @@ import java.text.SimpleDateFormat
 
 class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
+    private val currentUser = FirebaseAuth.getInstance().currentUser!!
+
     private var onDoubleClicked: (post: Post) -> Unit = {}
     fun setOnDoubleClickListener(onDoubleClicked: (post: Post) -> Unit) {
         this.onDoubleClicked = onDoubleClicked
     }
 
-    private var onLiked: (postId: String) -> Unit = { }
-    fun setOnLikeListener(onLiked: (postId: String) -> Unit) {
-        this.onLiked = onLiked
+    private var onDisliked: (post: Post, userId: String) -> Unit = { _, _ ->  }
+    fun setOnDislikeListener(onDisliked: (post: Post, userId: String) -> Unit) {
+        this.onDisliked = onDisliked
     }
 
     inner class PostViewHolder(private val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SimpleDateFormat")
         fun populateModel(post: Post) {
             binding.tvDescription.text = post.description
-            binding.tvLikesCount.text = post.likes.toString()
+            binding.tvLikesCount.text = post.likedUsers.size.toString()
+            if(post.likedUsers.contains(currentUser.uid)){
+                binding.favoriteIcon.setImageResource(R.drawable.ic_baseline_favorite_24)
+            } else {
+                binding.favoriteIcon.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
             Glide
                 .with(binding.root.context)
                 .load(post.imageUrl)
@@ -55,9 +64,15 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                     }
                 }
             }
+
             binding.favoriteIcon.setOnClickListener {
-                binding.favoriteIcon.setImageResource(R.drawable.ic_baseline_favorite_24)
-                onLiked.invoke(post.id)
+                if(post.likedUsers.contains(currentUser.uid)){
+                    binding.favoriteIcon.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                    onDisliked.invoke(post, currentUser.uid)
+                } else {
+                    binding.favoriteIcon.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    onDoubleClicked.invoke(post)
+                }
             }
         }
 

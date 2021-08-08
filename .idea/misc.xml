@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/drawable/input_background.xml" value="0.2111111111111111" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/drawable/instagram_like_animation.xml" value="0.2203125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_favorite.xml" value="0.21" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_home.xml" value="0.10461956521739131" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_profile.xml" value="0.11141304347826086" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_sign_in.xml" value="0.16" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Instagram/app/src/main/res/layout/item_post.xml" value="0.22" />
       </map>
     </option>

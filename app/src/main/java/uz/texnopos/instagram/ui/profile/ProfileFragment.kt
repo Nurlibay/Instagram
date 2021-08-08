@@ -19,12 +19,15 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModel()
     private lateinit var binding: FragmentProfileBinding
+//    private lateinit var postBinding: ItemPostBinding
     private lateinit var parentNavController: NavController
     private var adapter = ProfilePostAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
+//        postBinding = ItemPostBinding.bind(LayoutInflater.from(requireActivity())
+//            .inflate(R.layout.item_post, null, false))
         binding.rvPosts.adapter = adapter
         setUpObservers()
         viewModel.getProfileData()
@@ -38,7 +41,6 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
     }
     
     private fun setUpObservers(){
-
         viewModel.profile.observe(viewLifecycleOwner, Observer {
             when(it.status){
                 ResourceState.LOADING -> {
